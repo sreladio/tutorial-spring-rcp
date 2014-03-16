@@ -2,6 +2,7 @@ package com.eladio.vistas;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import org.springframework.richclient.application.support.AbstractView;
 
@@ -14,10 +15,11 @@ public class StartingAppView extends AbstractView {
 
 	@Override
 	protected JComponent createControl() {
-		JLabel etiqueta = new JLabel();
-		etiqueta.setText("Hola Mundo");
-		
-		return etiqueta;
+		JPanel panel = new JPanel();
+		panel.add(new JLabel("Bienvenido a mi aplicación SRCP"));
+		panel.add(new JLabel("¡Hola!"));
+				
+		return panel;
 	}
 
 }
