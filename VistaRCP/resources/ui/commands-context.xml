@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation=
+  "http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd" >
+
+  <!-- 
+    Bean: windowCommandManager
+    Type: magic
+    Usage: required
+    Description: This specifies the component that will manage the commands
+    associated with a window.  You can specify the ids of commands that
+    are "shared" among views.  This indicates to the manager that they
+    will have different target executors in each view.
+  -->
+	<bean id="windowCommandManager"
+	  class="org.springframework.richclient.application.support.ApplicationWindowCommandManager">
+		<property name="sharedCommandIds">
+			<list>
+				<value>propertiesCommand</value>
+				<value>deleteCommand</value>
+				<value>cutCommand</value>
+				<value>copyCommand</value>
+			</list>
+		</property>
+	</bean>
+  
+  
+  <!-- *************************** MENÚ *************************** -->
+  <!-- 
+  	Un menú se implementa mediante un bean de tipo 'CommandGroupFactoryBean'.
+  	En la propiedad 'members' (de tipo list), se dan de alta los submenús. 
+  	Pueden ser:
+  		- Un comando global
+  		- Un comando local
+  		- Un separador
+  		- Otro bean de tipo 'CommandGroupFactoryBean' (p.e. submenús)
+  	
+	Comandos globales predefinidos de SRCP:
+		- cut
+		- copy
+		- paste
+		- undo
+		- redo
+		- save
+		- save as
+		- select all
+		- delete
+		- properties
+		- Run
+		
+	Algunos comandos locales predefinidos:
+		- org.springframework.richclient.command.support.ExitCommand
+		- org.springframework.richclient.command.support.NewWindowCommand
+		- org.springframework.richclient.command.support.ShowViewMenu
+		- org.springframework.richclient.command.support.AboutCommand
+  -->
+  
+  <!-- 
+  	Menú principal
+  -->
+	<bean id="menuBar" class="org.springframework.richclient.command.CommandGroupFactoryBean" >
+		<property name="members">
+			<list>
+  				<ref bean="fileMenu" />
+  				<ref bean="windowMenu" />
+  			</list>	
+  		</property>
+	</bean>
+  
+  
+  <!-- ************************* SUB MENÚ ************************* -->
+  
+  <!-- 
+  	Submenú Archivo
+  -->
+	<bean id="fileMenu" class="org.springframework.richclient.command.CommandGroupFactoryBean" >
+		<property name="members">
+			<list>
+				<value>separator</value>
+				<value>propertiesCommand</value>
+				<value>separator</value>
+				<value>deleteCommand</value>
+				<value>separator</value>
+				<value>cutCommand</value>
+				<value>separator</value>
+				<value>copyCommand</value>
+				<value>separator</value>
+				<bean class="org.springframework.richclient.command.support.ExitCommand" />
+			</list>
+		</property>
+	</bean> 
+	
+	
+  <!-- 
+  	Submenú Ventana
+  -->
+	<bean id="windowMenu" class="org.springframework.richclient.command.CommandGroupFactoryBean" >
+		<property name="members">
+			<list>
+				<value>separator</value>
+				<bean class="org.springframework.richclient.command.support.NewWindowCommand" />
+				<value>separator</value>
+				<bean class="org.springframework.richclient.command.support.ShowViewMenu" />
+				<value>separator</value>
+				<bean class="com.eladio.comandos.PruebaCommand" />
+			</list>
+		</property>
+	</bean>
+	
+	
+  <!-- ******************* BARRA DE HERRAMIENTAS ****************** -->
+  <!--
+  	Se implementa de la misma manera que los menús mediante un bean 
+  	de tipo 'CommandGroupFactoryBean'.
+  -->
+  
+	<bean id="toolBar" class="org.springframework.richclient.command.CommandGroupFactoryBean" >
+		<property name="members">
+			<list>
+				<value>separator</value>
+				<value>propertiesCommand</value>
+				<value>separator</value>
+				<value>deleteCommand</value>
+				<value>separator</value>
+				<value>cutCommand</value>
+				<value>separator</value>
+				<value>copyCommand</value>
+				<value>separator</value>
+				<bean class="com.eladio.comandos.BarraHerramientasCommand" />
+			</list>
+		</property>
+	</bean>
+  
+</beans>
