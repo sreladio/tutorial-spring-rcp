@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+    <groupId>com.eladio</groupId>
+    <artifactId>TutorialSpringRCP</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <groupId>com.eladio</groupId>
+  <artifactId>VistaRCP</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>VistaRCP</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <springFramework.version>2.5.1</springFramework.version>
+    <springRichclient.version>1.0.0</springRichclient.version>
+  </properties>
+  
+<!-- ******** REPOSITORIOS ******** -->
+
+  <repositories>
+      <repository>
+          <id>springRichclientRepository</id>
+          <name>Spring rich client repository</name>
+          <url>http://spring-rich-c.sourceforge.net/maven2repository</url>
+      </repository>
+  </repositories>
+
+<!-- ******** DEPENDENCIAS ******** -->
+
+  <dependencies>
+
+    <!-- ******** JUnit ******** -->
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- ******** Spring Framework ******** -->
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+      <version>${springFramework.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${springFramework.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${springFramework.version}</version>
+    </dependency>
+
+    <!-- ******** Spring RPC ******** -->
+    <dependency>
+        <groupId>org.springframework.richclient</groupId>
+        <artifactId>spring-richclient-resources</artifactId>
+        <version>${springRichclient.version}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.springframework.richclient</groupId>
+        <artifactId>spring-richclient-core</artifactId>
+        <version>${springRichclient.version}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.springframework.richclient</groupId>
+        <artifactId>spring-richclient-binding</artifactId>
+        <version>${springRichclient.version}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.springframework.richclient</groupId>
+        <artifactId>spring-richclient-form</artifactId>
+        <version>${springRichclient.version}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.springframework.richclient</groupId>
+        <artifactId>spring-richclient-support</artifactId>
+        <version>${springRichclient.version}</version>
+    </dependency>
+
+    <!--
+    <dependency>
+        <groupId>org.springframework.richclient</groupId>
+        <artifactId>spring-richclient-tiger</artifactId>
+        <version>${springRichclient.version}</version>
+    </dependency>
+    -->
+
+    <dependency>
+        <groupId>org.springframework.richclient</groupId>
+        <artifactId>spring-richclient-sandbox</artifactId>
+        <version>${springRichclient.version}</version>
+    </dependency>
+
+  </dependencies>
+</project>
