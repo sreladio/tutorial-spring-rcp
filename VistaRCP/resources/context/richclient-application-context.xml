@@ -56,14 +56,23 @@
   	Bean que mediante AOP será invocado en diferentes etapas del ciclo de vida
   	de la aplicación, commonStartup, onClose, ...
   	
-  	Entre otras cosas, especifica cual es la vista por defecto de la aplicación.
-  	Esa vista la recibe en el parámetro 'startingPageId' que será una referencia 
+  	Entre otras cosas, especifica:
+  	 
+  		 - La vista por defecto de la aplicación. Esa vista la recibe en el parámetro 
+  		   'startingPageId' que será una referencia
+  		   
+  		 - Menú principal: "menubarBeanName", se configura en el commands-context 
+  		 
+  		 - Barra de herramientas: "toolbarBeanName", se configura en el commands-context
+  		  
   	a un bean que represente a una vista.
   -->
     <bean name="applicationLifecycleAdvisor" class="com.eladio.aop.ApplicationLifecycleAdvisor">
-    	<property name="startingPageId">
-    		<value>startingAppView</value>
-    	</property>
+    	<property name="startingPageId" value ="startingAppView" />
+    	<property name="windowCommandBarDefinitions" value="ui/commands-context.xml" />
+        <property name="windowCommandManagerBeanName" value="windowCommandManager" />
+        <property name="menubarBeanName" value="menuBar" />
+        <property name="toolbarBeanName" value="toolBar" />
     </bean>
     
 
@@ -81,7 +90,65 @@
     	</property>
     </bean>
     
+    
+<!-- *************************** BEANS DE FICHEROS DE RECURSOS *************************** -->      
 
+
+  <!--
+    Bean: messageSource
+    Usage: platform required (not really, but you can't do much without it)
+    Description: This specifies the component that is responsible for providing
+    messages (all kinds of text) to the platform.  This is a critical piece
+    of the I18N support.  Unless your doing something very unusual, the
+    ResourceBundleMessageSource used below should be sufficient.  Just
+    configure it with the base names of the resource bundles you want to
+    use in your application.  Unless you want to override the default
+    text resources for the platform, you should include
+    org.springframework.richclient.application.messages as the last base name.
+  -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>ui.messages</value>
+				<value>org.springframework.richclient.application.messages</value>
+			</list>
+		</property>
+	</bean>
+
+    
+  <!--
+    Bean: imageSource
+    Usage: platform required
+    Description: This specifies the component that is responsible for providing
+    images to the platform.  It makes use of a resource factory that converts
+    the image keys to resource locations.  The DefaultImageSource also provides
+    a "broken image" image for any requested image that can't be found or fails
+    to load.
+  -->
+    <bean id="imageSource" class="org.springframework.richclient.image.DefaultImageSource">
+        <constructor-arg index="0" ref="imageResourcesFactory" />
+        <property name="brokenImageIndicator" value="/org/springframework/richclient/images/alert/error_obj.gif" />
+    </bean>
+    
+    
+  <!--
+    Bean: imageResourcesFactory
+    Usage: platform required (if you are using the DefaultImageSource, see below)
+    Description: This specifies the component that is responsible for providing
+    image resources locations.  This factory uses the specified properties
+    files to map image resource keys to image locations.
+  -->
+    <bean id="imageResourcesFactory" class="org.springframework.context.support.ResourceMapFactoryBean">
+        <property name="locations">
+            <list>
+                <value>classpath:org/springframework/richclient/image/images.properties</value>
+                <value>classpath:images/images.properties</value>
+            </list>
+        </property>
+    </bean>
+    
+    
 <!-- ********************************** BEANS DE SOPORTE ********************************* -->  
 
 
@@ -124,39 +191,7 @@
             <idref bean="applicationObjectConfigurer" />
         </property>
     </bean>
-    
-    
-  <!--
-    Bean: imageSource
-    Usage: platform required
-    Description: This specifies the component that is responsible for providing
-    images to the platform.  It makes use of a resource factory that converts
-    the image keys to resource locations.  The DefaultImageSource also provides
-    a "broken image" image for any requested image that can't be found or fails
-    to load.
-  -->
-    <bean id="imageSource" class="org.springframework.richclient.image.DefaultImageSource">
-        <constructor-arg index="0" ref="imageResourcesFactory" />
-        <property name="brokenImageIndicator" value="/org/springframework/richclient/images/alert/error_obj.gif" />
-    </bean>
-    
-    
-  <!--
-    Bean: imageResourcesFactory
-    Usage: platform required (if you are using the DefaultImageSource, see below)
-    Description: This specifies the component that is responsible for providing
-    image resources locations.  This factory uses the specified properties
-    files to map image resource keys to image locations.
-  -->
-    <bean id="imageResourcesFactory" class="org.springframework.context.support.ResourceMapFactoryBean">
-        <property name="locations">
-            <list>
-                <value>classpath:org/springframework/richclient/image/images.properties</value>
-                <value>classpath:images/images.properties</value>
-            </list>
-        </property>
-    </bean>
-    
+        
     
   <!--
     Bean: formComponentInterceptorFactory
