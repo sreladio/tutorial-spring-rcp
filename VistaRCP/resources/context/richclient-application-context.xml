@@ -84,6 +84,9 @@
   	Los beans que dan de alta a las vistas que se va a mostrar cuando se arranque la aplicación
   	implementan la clase 'DefaultViewDescriptor', y se les pasa como parámetro 'viewClass' la
   	clase que implementa la vista.
+  	
+  	Si la clase de la vista tiene un atributo (como una tabla) que hay que inyectársela, se 
+  	utiliza el parámetro 'viewProperties' al que se le inyecta un 'Map'. 
   -->
   
   <!-- VLDOCKING VIEW DESCRIPTOR
@@ -115,6 +118,11 @@
   		<property name="viewClass">
   			<value>com.eladio.vistas.VerLibrosVista</value>
   		</property>
+  		<property name="viewProperties">
+  			<map>
+  				<entry key="libreria" value-ref="libreriaBean" /> 
+  			</map>
+  		</property>
   	</bean>
   	
   <!-- 
@@ -130,6 +138,12 @@
   		</property>
   	</bean>
     
+    
+<!-- *********************************** BEANS DE DATOS ********************************** -->
+
+	<bean name="libreriaBean" class="com.eladio.beans.LibreriaBean" />
+
+
 <!-- *************************** BEANS DE FICHEROS DE RECURSOS *************************** -->      
 
 
@@ -267,6 +281,10 @@
     	class="org.springframework.richclient.application.config.DefaultApplicationObjectConfigurer">
     </bean>
     
+    
+<!-- ************************************ VLDOCKINGS'S *********************************** -->  
+
+
   <!-- 
   	Sobrescribe el bean 'applicationPageFactory' para que implemente 
   	el sistema de ventanas acoplables VLDocking. 
@@ -294,6 +312,9 @@
 	</property>
   </bean>
     
+
+<!-- **************************** DESCRIPTOR DE LA APLICACIÓN **************************** --> 
+
   <!--
     Bean: applicationDescriptor
     Usage: platform required
