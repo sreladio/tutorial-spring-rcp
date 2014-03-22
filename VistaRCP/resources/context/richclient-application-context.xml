@@ -59,16 +59,17 @@
   	Entre otras cosas, especifica:
   	 
   		 - La vista por defecto de la aplicación. Esa vista la recibe en el parámetro 
-  		   'startingPageId' que será una referencia
+  		   'startingPageId' que será una referencia a un bean que defina a una vista.
+  		   
+  		   En este caso, como estamos implementando las Docking Views se le pasa 
+  		   el proxy que controla el layout de las VLDocking's.
   		   
   		 - Menú principal: "menubarBeanName", se configura en el commands-context 
   		 
   		 - Barra de herramientas: "toolbarBeanName", se configura en el commands-context
-  		  
-  	a un bean que represente a una vista.
   -->
     <bean name="applicationLifecycleAdvisor" class="com.eladio.aop.ApplicationLifecycleAdvisor">
-    	<property name="startingPageId" value ="startingAppView" />
+    	<property name="startingPageId" value ="proxyPage" />
     	<property name="windowCommandBarDefinitions" value="ui/commands-context.xml" />
         <property name="windowCommandManagerBeanName" value="windowCommandManager" />
         <property name="menubarBeanName" value="menuBar" />
@@ -90,6 +91,23 @@
     	</property>
     </bean>
     
+  <!-- 
+  	Vista VerLibroVista.
+  -->
+  	<bean name="verLibrosVista" class="org.springframework.richclient.application.support.DefaultViewDescriptor" >
+  		<property name="viewClass">
+  			<value>com.eladio.vistas.VerLibrosVista</value>
+  		</property>
+  	</bean>
+  	
+  <!-- 
+  	Vista MensajesVista.
+  -->
+  	<bean name="mensajesVista" class="org.springframework.richclient.application.support.DefaultViewDescriptor" >
+  		<property name="viewClass">
+  			<value>com.eladio.vistas.MensajesVista</value>
+  		</property>
+  	</bean>
     
 <!-- *************************** BEANS DE FICHEROS DE RECURSOS *************************** -->      
 
@@ -225,9 +243,35 @@
     constructed via the platform.  This is a critical part of the I18N support.
   -->
     <bean id="applicationObjectConfigurer" depends-on="serviceLocator"
-    class="org.springframework.richclient.application.config.DefaultApplicationObjectConfigurer">
+    	class="org.springframework.richclient.application.config.DefaultApplicationObjectConfigurer">
     </bean>
     
+  <!-- 
+  	Sobrescribe el bean 'applicationPageFactory' para que implemente 
+  	el sistema de ventanas acoplables VLDocking. 
+  -->
+  <bean id="applicationPageFactory" 
+  	depends-on="serviceLocator" 
+  	class="org.springframework.richclient.application.docking.vldocking.VLDockingApplicationPageFactory" >
+  </bean>
+   
+  <!-- 
+  	Para poder utilizar las VLDockings views hay que añadirle un proxie
+  	para que actue entre las páginas y el lifeCycleAdvisor.
+  	
+  	La configuración inicial de las vistas acoplables (layout) se 
+  	mapea en el fichero vldocking.xml.
+  -->
+  <bean id="proxyPage"
+	class="org.springframework.richclient.application.docking.vldocking.VLDockingPageDescriptor">
+	<property name="initialLayout">
+		<bean class="org.springframework.core.io.ClassPathResource">
+			<constructor-arg type="java.lang.String">
+				<value>/layouts/vldocking.xml</value>
+			</constructor-arg>
+		</bean>
+	</property>
+  </bean>
     
   <!--
     Bean: applicationDescriptor
@@ -237,7 +281,7 @@
     args in the application bean.
   -->
     <bean id="applicationDescriptor"
-    class="org.springframework.richclient.application.support.DefaultApplicationDescriptor">
+    	class="org.springframework.richclient.application.support.DefaultApplicationDescriptor">
         <property name="version" value="0.1" />
         <property name="buildId" value="20080616" />
     </bean>
