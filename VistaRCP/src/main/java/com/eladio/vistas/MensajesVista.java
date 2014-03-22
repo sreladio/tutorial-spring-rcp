@@ -16,6 +16,11 @@ import org.springframework.richclient.command.support.GlobalCommandIds;
  */
 public class MensajesVista extends AbstractView {
 
+	/**
+	 * Id del comando global COMANDO_GLOBAL_COMMAND
+	 */
+	private final String COMANDO_GLOBAL_COMMAND = "comandoGlobalCommand";
+	
 	@Override
 	protected JComponent createControl() {
 		JPanel panel = new JPanel();
@@ -44,6 +49,9 @@ public class MensajesVista extends AbstractView {
 		
 		// Asociamos el ejecutor CortarExecutor al comando CUT
 		context.register(GlobalCommandIds.CUT, new CortarExecutor());
+		
+		// Asociamos el ejecutor GlobalExecutor al comando 
+		context.register(this.COMANDO_GLOBAL_COMMAND, new GlobalExecutor());
 	}	
 	
 	/**
@@ -73,6 +81,21 @@ public class MensajesVista extends AbstractView {
 		@Override
 		public void execute() {
 			System.out.println("Pulsado CORTAR en la pantalla de mensajes");
+		}
+	}
+	
+	/**
+	 * Inner class que implementa el executor del <code>comandoGlobalCommand</code> 
+	 * para la vista <code>MensajesVista</code>.
+	 */
+	private class GlobalExecutor implements ActionCommandExecutor {
+		
+		/**
+		 * Muestra un mensaje por pantalla.
+		 */
+		@Override
+		public void execute() {
+			System.out.println("Pulsado COMANDO GLOBAL en la pantalla de mensajes");
 		}
 	}
 
