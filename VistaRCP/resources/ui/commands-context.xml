@@ -13,6 +13,9 @@
     associated with a window.  You can specify the ids of commands that
     are "shared" among views.  This indicates to the manager that they
     will have different target executors in each view.
+    
+    Para crear un comando global tan sólo tenemos que añadirlo a la lista de
+    sharedCommandsIds, y luego añadirlo a un menú o a la barra de herramientas.
   -->
 	<bean id="windowCommandManager"
 	  class="org.springframework.richclient.application.support.ApplicationWindowCommandManager">
@@ -22,6 +25,7 @@
 				<value>deleteCommand</value>
 				<value>cutCommand</value>
 				<value>copyCommand</value>
+				<value>comandoGlobalCommand</value>
 			</list>
 		</property>
 	</bean>
@@ -128,6 +132,7 @@
 				<value>separator</value>
 				<value>copyCommand</value>
 				<value>separator</value>
+				<value>comandoGlobalCommand</value>
 				<bean class="com.eladio.comandos.BarraHerramientasCommand" />
 			</list>
 		</property>
