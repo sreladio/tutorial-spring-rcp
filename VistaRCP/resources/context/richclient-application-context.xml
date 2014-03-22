@@ -79,11 +79,28 @@
 
 <!-- ********************************** BEANS DE VISTAS ********************************** -->   
 
-
+  <!-- DEFAULT VIEW DESCRIPTOR 
+  
+  	Los beans que dan de alta a las vistas que se va a mostrar cuando se arranque la aplicación
+  	implementan la clase 'DefaultViewDescriptor', y se les pasa como parámetro 'viewClass' la
+  	clase que implementa la vista.
+  -->
+  
+  <!-- VLDOCKING VIEW DESCRIPTOR
+   
+  	La clase VLDockingViewDescriptor extiende de DefaultViewDescriptor permitiendo
+  	añadir nuevas funcionalidades:
+  	
+  		- closeEnabled
+  		- floatEnabled
+  		- maximizeEnabled
+  		- autoHideEnabled
+  	
+  	Estableciéndolas a true/false determinamos las posibles acciones sobre la ventana.
+  -->
+  
   <!--    
-  	Bean que da de alta a la vista que se va a mostrar cuando se arranque la aplicación.
-  	Implementa la clase 'DefaultViewDescriptor' y se le pasa como parámetro 'viewClass'
-  	la clase que implementa la vista.
+  	Vista startingAppView con DefaultViewDescriptor.
   -->
     <bean name="startingAppView" class="org.springframework.richclient.application.support.DefaultViewDescriptor">
     	<property name="viewClass">
@@ -92,7 +109,7 @@
     </bean>
     
   <!-- 
-  	Vista VerLibroVista.
+  	Vista VerLibroVista con DefaultViewDescriptor.
   -->
   	<bean name="verLibrosVista" class="org.springframework.richclient.application.support.DefaultViewDescriptor" >
   		<property name="viewClass">
@@ -101,9 +118,13 @@
   	</bean>
   	
   <!-- 
-  	Vista MensajesVista.
+  	Vista MensajesVista con VLDockingViewDescriptor.
   -->
-  	<bean name="mensajesVista" class="org.springframework.richclient.application.support.DefaultViewDescriptor" >
+  	<bean name="mensajesVista" 
+  		class="org.springframework.richclient.application.docking.vldocking.VLDockingViewDescriptor" >
+  		<property name="closeEnabled" value="true" />
+  		<property name="autoHideEnabled" value="true" />
+  		<property name="maximizeEnabled" value="true" />
   		<property name="viewClass">
   			<value>com.eladio.vistas.MensajesVista</value>
   		</property>
