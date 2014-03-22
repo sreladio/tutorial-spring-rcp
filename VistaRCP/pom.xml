@@ -120,5 +120,10 @@
         <version>2.1.4</version>
     </dependency>
 
+	<dependency>
+		<groupId>net.java.dev.glazedlists</groupId>
+        <artifactId>glazedlists</artifactId>
+        <version>1.6.0-jdk14</version>
+	</dependency>
   </dependencies>
 </project>
