@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Fichero que inicializa las vistas acoplables -->
+
+<VLDocking version="2.1.4">
+	<DockingDesktop name="proxyPage">
+		<DockingPanel>
+			<Split orientation="1" location="0.2506361323155216">
+				<Dockable>
+					<Key dockName="verLibrosVista" />
+				</Dockable>
+				<Split orientation="0" location="0.7484536082474227">
+					<TabbedDockable>
+						<Dockable>
+							<Key dockName="verLibrosVista" />
+						</Dockable>
+						<Dockable>
+							<Key dockName="startingAppView" />
+						</Dockable>
+					</TabbedDockable>
+					<Split orientation="0" location="0.7484536082474227">
+						<Dockable>
+							<Key dockName="mensajesVista" />
+						</Dockable>
+					</Split>
+				</Split>
+			</Split>
+		</DockingPanel>
+
+	</DockingDesktop>
+</VLDocking>
