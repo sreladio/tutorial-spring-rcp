@@ -9,7 +9,7 @@ import com.eladio.formularios.LibroForm;
 
 
 /**
- * Diálogo de la vista <code>VerLibros</code> VerLibrosVista.
+ * Diálogo de la vista <code>VerLibrosView</code> VerLibrosVista.
  * 
  * @author Carlos Eladio Fernández Ordóñez
  */
