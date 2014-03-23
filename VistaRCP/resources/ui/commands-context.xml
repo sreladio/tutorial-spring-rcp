@@ -26,6 +26,7 @@
 				<value>cutCommand</value>
 				<value>copyCommand</value>
 				<value>comandoGlobalCommand</value>
+				<value>newCommand</value>
 			</list>
 		</property>
 	</bean>
@@ -133,6 +134,7 @@
 				<value>copyCommand</value>
 				<value>separator</value>
 				<value>comandoGlobalCommand</value>
+				<value>newCommand</value>
 				<bean class="com.eladio.comandos.BarraHerramientasCommand" />
 			</list>
 		</property>
