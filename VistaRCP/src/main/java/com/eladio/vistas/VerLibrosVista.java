@@ -1,7 +1,6 @@
 package com.eladio.vistas;
 
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -13,7 +12,10 @@ import org.springframework.richclient.command.CommandGroup;
 import org.springframework.richclient.command.support.GlobalCommandIds;
 
 import com.eladio.beans.LibreriaBean;
+import com.eladio.beans.LibroBean;
+import com.eladio.dialogos.LibroPropertiesDialog;
 import com.eladio.tablas.LibrosTable;
+
 
 /**
  * Vista VerLibrosVista. Muestra por pantalla una tabla con los libros disponibles.
@@ -94,11 +96,15 @@ public class VerLibrosVista extends AbstractView {
 	public class PropertiesExecutor implements ActionCommandExecutor {
 
 		/**
-		 * Muestra un mensaje en un diálogo.
+		 * Muestra el diálogo <code>LibroPropertiesDialog</code>.
 		 */
 		@Override
 		public void execute() {
-			JOptionPane.showMessageDialog(null, "Propiedades de la tabla");
+			// Obtenemos el libro seleccionado.
+			LibroBean libroSeleccionado = librosTable.getSelectedLibro();
+			
+			// Creamos el diálogo en sí y lo mostramos.
+			new LibroPropertiesDialog(libroSeleccionado).showDialog();
 		}
 	}
 }
