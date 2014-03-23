@@ -11,6 +11,7 @@ import org.springframework.richclient.command.ActionCommandExecutor;
 import org.springframework.richclient.command.CommandGroup;
 import org.springframework.richclient.command.support.GlobalCommandIds;
 
+import com.eladio.beans.EditorialBean;
 import com.eladio.beans.LibreriaBean;
 import com.eladio.beans.LibroBean;
 import com.eladio.dialogos.LibroPropertiesDialog;
@@ -31,6 +32,7 @@ public class VerLibrosVista extends AbstractView {
 	private LibreriaBean libreria;
 	private LibrosTable librosTable;
 	private CommandGroup popPupProperties;
+	private final String NEW_COMMAND = "newCommand";
 	
 	@Override
 	protected JComponent createControl() {
@@ -76,8 +78,11 @@ public class VerLibrosVista extends AbstractView {
 	 */
 	@Override
 	protected void registerLocalCommandExecutors(PageComponentContext context) {
-		// Asociamos el ejecutor PropertiesExecute al comando PROPERTIES
+		// Asociamos el ejecutor PropertiesExecute al comando PROPERTIES.
 		context.register(GlobalCommandIds.PROPERTIES, new PropertiesExecutor());
+		
+		// Asociamos el ejecutor NuevoLibroExecutor al comando NEW_COMMAND.
+		context.register(this.NEW_COMMAND, new NuevoLibroExecutor());
 	}
 	
 	/**
@@ -90,10 +95,34 @@ public class VerLibrosVista extends AbstractView {
 	}
 	
 	/**
+	 * Inner class que implementa el executor <code>NuevoLibroExecutor</code>
+	 * para la vista <code>VerLibrosVista</code>
+	 */
+	private class NuevoLibroExecutor implements ActionCommandExecutor {
+		
+		@SuppressWarnings("unchecked")
+		@Override
+		public void execute() {
+			// Creamos un nuevo libro en blanco.
+			LibroBean nuevoLibro = new LibroBean();
+			nuevoLibro.setEditorial(new EditorialBean());
+			
+			// Le pasamos el nuevo libro al diálogo para que lo muestre.
+			new LibroPropertiesDialog(nuevoLibro).showDialog();
+			
+			// Lo añadimos a la librería.
+			libreria.add(nuevoLibro);
+			
+			// Lo añadimos a la tabla
+			librosTable.getBaseEventList().add(nuevoLibro);
+		}
+	}
+	
+	/**
 	 * Inner class que implementa el executor del <code>commandProperties</code> 
 	 * para la vista <code>VerLibrosVista</code>.
 	 */
-	public class PropertiesExecutor implements ActionCommandExecutor {
+	private class PropertiesExecutor implements ActionCommandExecutor {
 
 		/**
 		 * Muestra el diálogo <code>LibroPropertiesDialog</code>.
