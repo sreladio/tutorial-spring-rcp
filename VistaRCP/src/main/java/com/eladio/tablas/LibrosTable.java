@@ -11,6 +11,9 @@ import com.eladio.beans.LibreriaBean;
  */
 public class LibrosTable extends AbstractObjectTable {
 
+	/**
+	 * Contiene una colección de beans LibroBean
+	 */
 	private LibreriaBean libreria;
 	
 	/**
