@@ -38,4 +38,14 @@ public class LibreriaBean {
 	public Object[] obtenerTodosLosLibros() {
 		return this.libreria.toArray();
 	}
+	
+	/**
+	 * Añade un LibroBean que se le pasa por parámetro a la
+	 * colección <code>libreria</code>
+	 * 
+	 * @param libro El LibroBean.
+	 */
+	public void add(LibroBean libro) {
+		this.libreria.add(libro);
+	}
 }
