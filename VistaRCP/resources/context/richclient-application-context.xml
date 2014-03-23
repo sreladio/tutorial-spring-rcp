@@ -74,6 +74,7 @@
         <property name="windowCommandManagerBeanName" value="windowCommandManager" />
         <property name="menubarBeanName" value="menuBar" />
         <property name="toolbarBeanName" value="toolBar" />
+        <property name="usuarios" ref="usuariosBean" />
     </bean>
     
 
@@ -143,6 +144,14 @@
 
 	<bean name="libreriaBean" class="com.eladio.beans.LibreriaBean" />
 
+	<bean name="usuariosBean" class="com.eladio.beans.UsuariosBean" >
+		<property name="usuarios" ref="adminBean" />
+	</bean>
+	
+	<bean name="adminBean" class="com.eladio.beans.UsuarioBean">
+		<property name="user" value="admin" />
+		<property name="password" value="admin" />
+	</bean>
 
 <!-- *************************** BEANS DE FICHEROS DE RECURSOS *************************** -->      
 
